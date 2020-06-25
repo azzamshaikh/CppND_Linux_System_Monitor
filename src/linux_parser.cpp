@@ -95,6 +95,7 @@ float LinuxParser::MemoryUtilization() {
         (std::stof(memtotal) - std::stof(memfree)) / (std::stof(memtotal));
     return memory_util;
   }
+  return 0.0;
 }
 
 // TODO: Read and return the system uptime
@@ -118,7 +119,7 @@ long LinuxParser::UpTime() {
 long LinuxParser::Jiffies() {
   long jiffies;
   vector<string> cpudata = LinuxParser::CpuUtilization();
-  for (int i = 0; i < cpudata.size(); i++) {
+  for (std::size_t i = 0; i < cpudata.size(); i++) {
     jiffies += stol(cpudata[i]);
   }
   return jiffies;
@@ -244,6 +245,7 @@ int LinuxParser::TotalProcesses() {
     totalprocesses = std::stoi(total);
     return totalprocesses;
   }
+  return 0;
 }
 
 // TODO: Read and return the number of running processes
@@ -268,6 +270,7 @@ int LinuxParser::RunningProcesses() {
     runningprocesses = std::stoi(running);
     return runningprocesses;
   }
+  return 0;
 }
 
 // TODO: Read and return the command associated with a process
@@ -280,6 +283,7 @@ string LinuxParser::Command(int pid) {
     std::getline(stream, cmd);
     return cmd;
   }
+  return string();
 }
 
 // TODO: Read and return the memory used by a process
@@ -325,6 +329,7 @@ string LinuxParser::Uid(int pid) {
       }
     }
   }
+  return string();
 }
 
 // TODO: Read and return the user associated with a process
